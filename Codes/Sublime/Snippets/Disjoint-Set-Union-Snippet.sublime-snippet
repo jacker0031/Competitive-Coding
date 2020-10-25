@@ -1,0 +1,93 @@
+<snippet>
+    <content><![CDATA[
+class dsu {
+
+private:
+    int components, nodes;
+    vi parent;
+    // multiset<int> sizes;
+    // set<int> roots;
+    
+public:
+    
+    dsu(): components(0), nodes(0) {};
+    dsu(int size)
+    {
+        int mini = 1;
+        init(max(mini, size));
+    }
+    
+    inline void init(int size)
+    {
+        clear();
+        parent.assign(size + 1, -1);
+        nodes = components = size;
+        
+        // for(int i = 1 ; i <= size ; i++) {
+        //     sizes.insert(1);
+        //     roots.insert(i);
+        // }
+    }
+    
+    inline int size() {return nodes;}
+    inline int disjoints() {return components;}
+    inline int size(int set) {return -parent[find(set)];}
+    inline int find(int x) {return parent[x] < 0 ? x : parent[x] = find(parent[x]);}
+    inline bool isSameSet(int x, int y) {return find(x) == find(y);}
+    
+    inline vi givePar() {return parent;}
+    // inline vi giveRoot() {return roots;}
+    // inline multiset<int> giveSize() {return sizes;}
+    
+    // if choice is true, then x will be
+    // parent of y and it's child
+    bool merge(int x, int y, bool choice = 0)
+    {
+        if(isSameSet(x, y)) return false;
+        
+        x = find(x);
+        y = find(y);
+        
+        if(!choice && size(x) < size(y)) swap(x, y);
+        
+        // sizes.erase(sizes.find(size(x)));
+        // sizes.erase(sizes.find(size(y)));
+        // roots.erase(y);
+        
+        parent[x] += parent[y];  // changing the size of x. (i.e. root node)
+        parent[y] = x;
+        // sizes.insert(size(x));
+        
+        components--;
+        return true;
+    }
+    
+    inline void clear()
+    {
+        parent.clear();
+        // sizes.clear();
+        // roots.clear();
+    }
+
+    inline int operator [](int x)
+    {
+        assert(x < nodes);
+        return parent[x];
+    }
+};
+
+string to_string(dsu &a)
+{
+#ifdef DEBUG
+    string res = "Parent --> " + to_string(a.givePar()) + '\n';
+    // res += "       Roots --> " + to_string(a.giveRoot());
+    return res;
+#endif
+    return "";
+}
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>cdsu</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope>source.c++</scope>
+</snippet>

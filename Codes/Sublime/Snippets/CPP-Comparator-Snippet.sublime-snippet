@@ -1,0 +1,13 @@
+<snippet>
+	<content><![CDATA[
+bool cmp$1(const ${2:node} &lhs, const ${2:node} &rhs)
+{
+	$3
+    return lhs.$4 < rhs.$4;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>ccomparator</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

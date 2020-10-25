@@ -1,0 +1,59 @@
+<snippet>
+    <content><![CDATA[
+${1:// using vector(if factorization is needed)
+vi sieve;
+const int mxs = 4000000;  // 4 * 10^6
+bool isPrime(int n) {return sieve[n] == -1;\}
+
+void build_sieve(int maximum = mxs)
+{
+    sieve.assign(maximum + 1, -1);
+    sieve[0] = sieve[1] = 0;
+    
+    for(int i = 2 ; i * i <= maximum ; i++) {
+        if(isPrime(i)) {
+            for(int j = i * i ; j <= maximum ; j += i) {
+                if(isPrime(j))
+                    sieve[j] = i;
+            \}
+        \}
+    \}
+\}
+
+void sfact(int n, map<int, int> &ans)
+{
+    if(n <= 1) return;
+    if(!sieve.size()) build_sieve();
+    
+    while(true) {
+        if(isPrime(n)) {
+            ans[n]++;
+            break;
+        \}
+        
+        ans[sieve[n]]++;
+        n /= sieve[n];
+    \}
+\}}${2:// using bitset(if only prime numbers are needed)
+const int mxs = 16000000;  // 1.6 * 10^7
+bitset<mxs> sieve = bitset<mxs>().set();
+bool isPrime(int n) {return sieve[n];\}
+
+void build_sieve(int maximum = mxs - 1)
+{
+    sieve.reset(0);
+    sieve.reset(1);
+
+    for(int i = 2 ; i * i <= maximum ; i++) {
+        if(isPrime(i)) {
+            for(int j = i * i ; j <= maximum ; j += i)
+                sieve.reset(j);
+        \}
+    \}
+\}}
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>csieve</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope>source.c++</scope>
+</snippet>

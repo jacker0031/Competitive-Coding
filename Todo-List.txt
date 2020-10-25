@@ -1,0 +1,6 @@
+1. https://atcoder.jp/contests/abc107/submissions/8442194
+2. chef shefu - cc
+3. mike and gcd problem
+4. game of strings - cc
+5. array sharp - cf
+6. three arrays - https://codeforces.com/problemset/problem/392/D

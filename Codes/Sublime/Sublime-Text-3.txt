@@ -1,0 +1,11 @@
+Package Names :
+
+1. CFCompiler (UD)
+2. CoolFormat
+3. CppFastOlympicCoding
+4. Quote (UD)
+5. AceJump (use : ctrl + alt + '.')
+6. Trimmer
+
+Theme : Adaptive
+Color Scheme : Monokai
