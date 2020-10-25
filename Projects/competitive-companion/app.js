@@ -1,20 +1,19 @@
 // Constants
 const port = 10043;
 
-// Requires
+// NPM Packages
 const app = require('express')();
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
-const { dir, separator } = require('./statics');
-
-// Functions
-function updateFile(path, data) {
-    fs.writeFile(path, data, (err) => {
-        if (err)
-            throw err;
-    });
-}
+// Functions and Constants, imported from statics.js
+const {
+    dir,
+    separator,
+    updateFile,
+    readFile,
+    removeTitle
+} = require('./statics');
 
 app.use(bodyParser.json());
 
@@ -23,13 +22,8 @@ app.post('/', (req, res) => {
 
     // Adding title into 1.cpp
     var code = `// ${data.name}\n`;
-    fs.readFile(dir + '1.cpp', (err, data) => {
-        if (err)
-            throw err;
-        if (data)
-            code += data.toString();
-        updateFile(dir + '1.cpp', code);
-    });
+    // removesTitle => readsFile => updatesFile
+    removeTitle(() => readFile(dir + '1.cpp', (data) => updateFile(dir + '1.cpp', code + data)));
 
     // Parsing input and output
     var inputs = '';
